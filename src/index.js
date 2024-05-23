@@ -1,10 +1,10 @@
-const DURATION = 10; // 10 seconds
-let remainingTime = DURATION; // Countdown starting from 10
+const counter = 10; // 10 seconds
+let remainingTime = counter; // Countdown starting from 10
 let timer = null; // Variable to store the interval
-
+let toastTimeout = null;
 const startButton = document.querySelector("#start-btn");
 const toast = document.querySelector(".toast");
-const closetoast = document.querySelector(".close-toast");
+const closetoast = document.querySelector("#close-toast");
 const toastMessage = document.querySelector("#toast-message");
 const timerElement = document.querySelector("#time");
 
@@ -14,41 +14,40 @@ startButton.addEventListener("click", () => {
 });
 
 closetoast.addEventListener("click", () => {
-  clearInterval(timer);
   toast.classList.remove("show");
-  timerElement.innerText = DURATION;
-  startButton.disabled = false;
+  clearTimeout(toastTimeout);
 });
 
 function showToast(message) {
   toastMessage.innerText = message;
   toast.classList.add("show");
-  setTimeout(() => {
+  toastTimeout = setTimeout(() => {
+    console.log("execution");
     toast.classList.remove("show");
   }, 3000);
 }
 
 function startCountdown() {
-  remainingTime = DURATION;
+  remainingTime = counter;
+  startButton.disabled = true;
 
   timer = setInterval(() => {
     remainingTime -= 1;
-    if (remainingTime >= 0) {
-      startButton.disabled = true;
+    if (remainingTime > 0) {
       timerElement.innerText = remainingTime;
-      if (remainingTime === DURATION - 1) {
+      if (remainingTime === counter - 1) {
         showToast("⏰ Final countdown! ⏰");
-      } else if (remainingTime === DURATION / 2) {
+      } else if (remainingTime === counter / 2) {
         showToast("Start the engines! 💥");
       }
     } else if (remainingTime <= 0) {
-      timerElement.innerText = DURATION;
-      startButton.disabled = false;
-      clearInterval(timer);
-    } else {
+      timerElement.innerText = remainingTime;
       showToast("Lift off! 🚀");
-      startButton.disabled = false;
       clearInterval(timer);
+      setTimeout(() => {
+        timerElement.innerText = counter;
+        startButton.disabled = false;
+      }, 3000);
     }
   }, 1000);
 }
