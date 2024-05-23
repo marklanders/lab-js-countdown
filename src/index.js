@@ -15,16 +15,16 @@ startButton.addEventListener("click", () => {
 
 closetoast.addEventListener("click", () => {
   clearInterval(timer);
-  toast.classList.toggle("show");
+  toast.classList.remove("show");
   timerElement.innerText = DURATION;
   startButton.disabled = false;
 });
 
 function showToast(message) {
   toastMessage.innerText = message;
-  toast.classList.toggle("show");
+  toast.classList.add("show");
   setTimeout(() => {
-    toast.classList.toggle("show");
+    toast.classList.remove("show");
   }, 3000);
 }
 
