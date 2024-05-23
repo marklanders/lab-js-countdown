@@ -33,13 +33,12 @@ function startCountdown() {
 
   timer = setInterval(() => {
     remainingTime -= 1;
-    if (remainingTime > 0) {
-      timerElement.innerText = remainingTime;
-      if (remainingTime === counter - 1) {
-        showToast("⏰ Final countdown! ⏰");
-      } else if (remainingTime === counter / 2) {
-        showToast("Start the engines! 💥");
-      }
+    timerElement.innerText = remainingTime;
+
+    if (remainingTime === counter - 1) {
+      showToast("⏰ Final countdown! ⏰");
+    } else if (remainingTime === counter / 2) {
+      showToast("Start the engines! 💥");
     } else if (remainingTime <= 0) {
       timerElement.innerText = remainingTime;
       showToast("Lift off! 🚀");
