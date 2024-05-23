@@ -29,7 +29,6 @@ function showToast(message) {
 }
 
 function startCountdown() {
-  console.log("startCountdown called!");
   remainingTime = DURATION;
 
   timer = setInterval(() => {
@@ -42,6 +41,10 @@ function startCountdown() {
       } else if (remainingTime === DURATION / 2) {
         showToast("Start the engines! 💥");
       }
+    } else if (remainingTime <= 0) {
+      timerElement.innerText = DURATION;
+      startButton.disabled = false;
+      clearInterval(timer);
     } else {
       showToast("Lift off! 🚀");
       startButton.disabled = false;
